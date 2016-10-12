@@ -47,13 +47,14 @@ def it_details(request):
             dict_it = {'new_it': new_it}
         else:
             dict_it = {'new_it': it}
+
     # if request.POST:
     #     it_form = ITForm(request.POST)
     #     print it_form.is_valid()
     #     new_it = it_form.save()
     #     print new_it
     print dict_it
-    return render(request, 'it_details.html', dict_it)
+    return render(request, 'details_it.html', dict_it)
 
 
 def manage_it(request):
