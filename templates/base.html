@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <title>接口自动化测试平台</title>
+    {% load staticfiles %}
+    {% block css %}
+        <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+        <link href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}" media="all"	rel="stylesheet" type="text/css" />
+        <link href="{% static 'css/dashboard.css' %}" media="all" rel="stylesheet" type="text/css" />
+    {% endblock %}
+
+    {% block js %}
+        <script type="text/javascript" src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% endblock %}
+
+</head>
+<body>
+    {% block nav %}
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">接口自动化测试平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">设置</a></li>
+            <li><a href="#">帮助</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="搜索...">
+          </form>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+
+            {% block nav-sidebar %}
+                <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Export</a></li>
+                </ul>
+
+            {% endblock %}
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+            {% block main %}
+                <h3 class="page-header">新建接口</h3>
+
+                <div class="row placeholders">
+                <form class="form-horizontal" role="form" action="/add_it/" method="post">
+                    {% csrf_token %}
+                    <div class="col-md-6 column">
+                        <div class="form-group">
+                             <label for="itName" class="col-sm-2 control-label">接口名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="itName" name="itName"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                             <label for="host" class="col-sm-2 control-label">HOST</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="host" name="host"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                             <label for="request-type" class="col-sm-2 control-label
+                             ">请求类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="request-type" name="requestType">
+                                  <option>GET</option>
+                                  <option>POST</option>
+                                  <option>PUT</option>
+                                  <option>DELETE</option>
+                                 </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 column">
+                        <div class="form-group">
+                             <label for="url" class="col-sm-2 control-label">URL</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="url" name="url"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                         <label for="args" class="col-sm-2 control-label">参数</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="args" name="args"/>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10" align="left">
+                                 <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                </div>
+
+                <h3 class="sub-header">接口管理</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                接口名
+                            </th>
+                            <th>
+                                HOST
+                            </th>
+                            <th>
+                                请求类型
+                            </th>
+                            <th>
+                                URL
+                            </th>
+                            <th>
+                                创建者
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for it in it_table %}
+                        <tr class="success">
+                            <td>
+                                {{ it.it_name }}
+                            </td>
+                                <td>
+                                {{ it.host }}
+                            </td>
+                                <td>
+                                {{ it.request_type }}
+                            </td>
+                                <td>
+                                {{ it.url }}
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                </div>
+
+            {% endblock %}
+
+
+
+        </div>
+      </div>
+    </div>
+</body>
+</html>

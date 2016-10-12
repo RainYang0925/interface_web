@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h3 class="sub-header">{{ new_it.url }}</h3>
+
+    <div class="col-md-4 column">
+
+        <div class="form-group">
+            <label for="team" class="col-sm-2 control-label
+                             ">业务分组</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="team" name="team">
+                    <option>默认分组</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4 column">
+        <div class="form-group">
+            <label for="person" class="col-sm-2 control-label
+                             ">负责人</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="person" name="person">
+                    <option>hzdonghao</option>
+                    <option>hzchenyazhi</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 column">
+        <h2>
+            Heading
+        </h2>
+        <p>
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            Donec sed odio dui.
+        </p>
+        <p>
+            <a class="btn" href="#">View details »</a>
+        </p>
+    </div>
+
+{% endblock %}

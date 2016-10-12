@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+    <h3 class="sub-header">接口管理</h3>
+
+    <div class="row clearfix">
+		<div class="col-md-12 column">
+        <form class="navbar-form navbar-right">
+            <button type="button" class="btn btn-primary" >新建接口</button>
+            <input type="text" class="form-control" placeholder="搜索...">
+        </form>
+
+    </div>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                接口名称
+                            </th>
+                            <th>
+                                HOST
+                            </th>
+                            <th>
+                                请求类型
+                            </th>
+                            <th>
+                                URL
+                            </th>
+                            <th>
+                                创建者
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for it in it_table %}
+                        <tr class="success">
+                            <td>
+                                {{ it.it_name }}
+                            </td>
+                                <td>
+                                {{ it.host }}
+                            </td>
+                                <td>
+                                {{ it.request_type }}
+                            </td>
+                                <td>
+                                {{ it.url }}
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+        </table>
+    </div>
+
+
+
+
+{% endblock %}

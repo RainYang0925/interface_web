@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h3 class="sub-header">创建接口</h3>
+
+    <div class="row clearfix">
+        <div class="col-md-6 column">
+            <form class="form-horizontal" role="form" action="it_details.html" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="itName" class="col-sm-2 control-label">接口名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="it-name" name="it-name" placeholder="请输入接口名称"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="protocol-type" class="col-sm-2 control-label
+                             ">协议类型</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="protocol-type" name="protocol-type">
+                            <option>HTTPS</option>
+                            <option>HTTP</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="request-type" class="col-sm-2 control-label
+                             ">请求类型</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="request-type" name="request-type">
+                            <option>GET</option>
+                            <option>POST</option>
+                            <option>PUT</option>
+                            <option>DELETE</option>
+                            <option>PATCH</option>
+                            <option>HEAD</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="url" class="col-sm-2 control-label">URL</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="url" name="url" placeholder="请输入相对路径，例如：/api/get"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="desc" class="col-sm-2 control-label">描述</label>
+                    <div class="col-sm-10">
+                        <textarea type="text" class="form-control" id="desc" name="desc"
+                                  placeholder="请接口描述信息"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="team" class="col-sm-2 control-label
+                             ">业务分组</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="team" name="team">
+                            <option>默认分组</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="person" class="col-sm-2 control-label
+                             ">负责人</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="person" name="person">
+                            <option>hzdonghao</option>
+                            <option>hzchenyazhi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10" align="left">
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
