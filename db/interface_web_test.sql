@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-10-13 18:30:49
+Date: 2016-10-23 20:01:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -145,81 +145,62 @@ CREATE TABLE `directory_tree` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for it_request_body
+-- Table structure for it_body
 -- ----------------------------
-DROP TABLE IF EXISTS `it_request_body`;
-CREATE TABLE `it_request_body` (
+DROP TABLE IF EXISTS `it_body`;
+CREATE TABLE `it_body` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
   `type` int(11) NOT NULL,
   `desc` varchar(254) DEFAULT NULL,
   `value` varchar(254) DEFAULT NULL,
   `it_id` int(11) DEFAULT NULL,
+  `body_type` int(11) DEFAULT NULL COMMENT 'body_type：2表示request-body，3表示response-body',
   PRIMARY KEY (`id`),
   KEY `it_id` (`it_id`),
-  CONSTRAINT `it_request_body_ibfk_1` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
+  CONSTRAINT `it_body_ibfk_1` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of it_request_body
+-- Records of it_body
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for it_request_header
+-- Table structure for it_header
 -- ----------------------------
-DROP TABLE IF EXISTS `it_request_header`;
-CREATE TABLE `it_request_header` (
+DROP TABLE IF EXISTS `it_header`;
+CREATE TABLE `it_header` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `value` varchar(30) DEFAULT NULL,
   `desc` varchar(254) DEFAULT NULL,
   `it_id` int(11) NOT NULL,
+  `header_type` int(11) DEFAULT NULL COMMENT 'header_type：0表示request-header，1表示response-header',
   PRIMARY KEY (`id`),
   KEY `it_id` (`it_id`),
-  CONSTRAINT `it_request_header_ibfk_1` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
+  CONSTRAINT `it_header_ibfk_1` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of it_request_header
+-- Records of it_header
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for it_respons_body
+-- Table structure for it_log
 -- ----------------------------
-DROP TABLE IF EXISTS `it_respons_body`;
-CREATE TABLE `it_respons_body` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) DEFAULT NULL,
-  `type` int(11) NOT NULL,
-  `desc` varchar(254) DEFAULT NULL,
-  `value` varchar(254) DEFAULT NULL,
+DROP TABLE IF EXISTS `it_log`;
+CREATE TABLE `it_log` (
+  `id` int(11) NOT NULL,
   `it_id` int(11) DEFAULT NULL,
+  `timestamp` datetime NOT NULL,
+  `log_path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `it_id` (`it_id`),
-  CONSTRAINT `it_respons_body_ibfk_1` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
+  CONSTRAINT `it_log_ibfk_1` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of it_respons_body
--- ----------------------------
-
--- ----------------------------
--- Table structure for it_respons_header
--- ----------------------------
-DROP TABLE IF EXISTS `it_respons_header`;
-CREATE TABLE `it_respons_header` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `value` varchar(30) DEFAULT NULL,
-  `desc` varchar(254) DEFAULT NULL,
-  `it_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `it_id` (`it_id`),
-  CONSTRAINT `it_respons_header_ibfk_1` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of it_respons_header
+-- Records of it_log
 -- ----------------------------
 
 -- ----------------------------
@@ -280,21 +261,40 @@ CREATE TABLE `testcase` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for testcase_it
+-- Table structure for testcase_log
 -- ----------------------------
-DROP TABLE IF EXISTS `testcase_it`;
-CREATE TABLE `testcase_it` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `testcase_log`;
+CREATE TABLE `testcase_log` (
+  `id` int(11) NOT NULL,
   `testcase_id` int(11) DEFAULT NULL,
-  `it_id` int(11) DEFAULT NULL,
-  `index` int(11) DEFAULT NULL,
+  `timestamp` datetime NOT NULL,
+  `log_path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `testcase_id` (`testcase_id`),
-  KEY `it_id` (`it_id`),
-  CONSTRAINT `testcase_it_ibfk_1` FOREIGN KEY (`testcase_id`) REFERENCES `testcase` (`id`),
-  CONSTRAINT `testcase_it_ibfk_2` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
+  CONSTRAINT `testcase_log_ibfk_1` FOREIGN KEY (`testcase_id`) REFERENCES `testcase` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of testcase_it
+-- Records of testcase_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for testcase_step
+-- ----------------------------
+DROP TABLE IF EXISTS `testcase_step`;
+CREATE TABLE `testcase_step` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `testcase_id` int(11) DEFAULT NULL,
+  `it_id` int(11) DEFAULT NULL,
+  `it_index` int(11) DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `testcase_id` (`testcase_id`) USING BTREE,
+  KEY `it_id` (`it_id`) USING BTREE,
+  CONSTRAINT `testcase_step_ibfk_1` FOREIGN KEY (`testcase_id`) REFERENCES `testcase` (`id`),
+  CONSTRAINT `testcase_step_ibfk_2` FOREIGN KEY (`it_id`) REFERENCES `it_statement` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of testcase_step
 -- ----------------------------
