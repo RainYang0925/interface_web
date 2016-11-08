@@ -1,0 +1,1 @@
+2016-11-02 21:05:33,832 [logger:<module>] [INFO]- hello-logger
